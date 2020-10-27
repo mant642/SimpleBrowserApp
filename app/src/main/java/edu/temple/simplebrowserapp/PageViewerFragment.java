@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 public class PageViewerFragment extends Fragment {
+    WebView webView;
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     /*
@@ -53,8 +54,12 @@ public class PageViewerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_page_viewer, container, false);
-        WebView webView = v.findViewById(R.id.WebView);
-        webView.loadUrl("https://www.temple.edu");
+        webView = v.findViewById(R.id.WebView);
+        // webView.loadUrl("https://www.temple.edu");
         return v;
+    }
+
+    public void updateUrl (String newUrl) {
+        webView.loadUrl(newUrl);
     }
 }
