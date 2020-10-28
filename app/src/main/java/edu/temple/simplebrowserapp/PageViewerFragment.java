@@ -13,6 +13,7 @@ import android.webkit.WebViewClient;
 
 public class PageViewerFragment extends Fragment {
     WebView webView;
+    View v;
     private ViewFragmentListener listener;
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,6 +50,7 @@ public class PageViewerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         /*
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -60,16 +62,21 @@ public class PageViewerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // setRetainInstance(true);
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_page_viewer, container, false);
-        webView = v.findViewById(R.id.WebView);
+        if (savedInstanceState != null) {
 
-        // WebView documentation doesn't specify how to create a new default WebViewClient ...
-        // WebViewClient myWebViewClient = new WebViewClient();
+        } else {
+            v = inflater.inflate(R.layout.fragment_page_viewer, container, false);
+            webView = v.findViewById(R.id.WebView);
 
-        MyWebViewClient myWebViewClient = new MyWebViewClient();
-        webView.setWebViewClient(myWebViewClient);
-        // webView.loadUrl("https://www.temple.edu");
+            // WebView documentation doesn't specify how to create a new default WebViewClient ...
+            // WebViewClient myWebViewClient = new WebViewClient();
+
+            MyWebViewClient myWebViewClient = new MyWebViewClient();
+            webView.setWebViewClient(myWebViewClient);
+            // webView.loadUrl("https://www.temple.edu");
+        }
         return v;
     }
 

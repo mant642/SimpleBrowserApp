@@ -15,6 +15,35 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        if (savedInstanceState == null) {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+
+            f1 = new PageControlFragment();
+            f2 = new PageViewerFragment();
+
+            ft.replace(R.id.page_control, f1, "F1");
+            ft.replace(R.id.page_viewer, f2, "F2");
+
+            ft.commit();
+        } else {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+
+            f1 = (PageControlFragment) fm.findFragmentByTag("F1");
+            f2 = (PageViewerFragment) fm.findFragmentByTag("F2");
+
+            ft.replace(R.id.page_control, f1);
+            ft.replace(R.id.page_viewer, f2);
+
+            ft.commit();
+
+        }
+
+        // Original implementation
+
+        /*
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
@@ -25,6 +54,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         ft.replace(R.id.page_viewer, f2);
 
         ft.commit();
+         */
     }
 
 
