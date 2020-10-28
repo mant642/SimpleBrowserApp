@@ -30,7 +30,12 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
     @Override
     public void onUrlEntered(String input) {
-        f2.updateUrl(input);
+        // Perhaps check for https:// here?
+        if (!input.startsWith("https://")) {
+            f2.updateUrl("https://" + input);
+        } else {
+            f2.updateUrl(input);
+        }
     }
 
     @Override
