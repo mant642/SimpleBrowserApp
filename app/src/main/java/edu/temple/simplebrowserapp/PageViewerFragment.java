@@ -68,5 +68,13 @@ public class PageViewerFragment extends Fragment {
         webView.loadUrl(newUrl);
     }
 
+    public void moveBack () {
+        webView.goBack();
+    }
+
+    public void moveForward () {
+        webView.goForward();
+    }
+
 
 }

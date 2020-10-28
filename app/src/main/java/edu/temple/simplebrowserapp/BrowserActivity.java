@@ -30,4 +30,14 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     public void onUrlEntered(String input) {
         f2.updateUrl(input);
     }
+
+    @Override
+    public void onBackClicked() {
+        f2.moveBack();
+    }
+
+    @Override
+    public void onNextClicked() {
+        f2.moveForward();
+    }
 }

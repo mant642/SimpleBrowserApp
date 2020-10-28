@@ -15,6 +15,8 @@ public class PageControlFragment extends Fragment {
 
     private EditText editText;
     private ImageButton imageButton;
+    private ImageButton imageButton2;
+    private ImageButton imageButton3;
     private ControlFragmentListener listener;
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,6 +41,8 @@ public class PageControlFragment extends Fragment {
 
     public interface ControlFragmentListener {
         void onUrlEntered(String input);
+        void onBackClicked();
+        void onNextClicked();
     }
 
     @Override
@@ -63,6 +67,21 @@ public class PageControlFragment extends Fragment {
                 listener.onUrlEntered(input);
             }
         });
+        imageButton2 = v.findViewById(R.id.Back);
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onBackClicked();
+            }
+        });
+        imageButton3 = v.findViewById(R.id.Next);
+        imageButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onNextClicked();
+            }
+        });
+
         return v;
     }
 
