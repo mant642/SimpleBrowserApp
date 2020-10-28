@@ -62,11 +62,10 @@ public class PageViewerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // setRetainInstance(true);
-        // Inflate the layout for this fragment
         if (savedInstanceState != null) {
 
         } else {
+            // Inflate the layout for this fragment
             v = inflater.inflate(R.layout.fragment_page_viewer, container, false);
             webView = v.findViewById(R.id.WebView);
 
