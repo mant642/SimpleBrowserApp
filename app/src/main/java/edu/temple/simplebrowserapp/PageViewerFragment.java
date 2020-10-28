@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class PageViewerFragment extends Fragment {
     WebView webView;
@@ -55,6 +56,10 @@ public class PageViewerFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_page_viewer, container, false);
         webView = v.findViewById(R.id.WebView);
+
+        // WebView documentation doesn't specify how to create a new default WebViewClient ...
+        WebViewClient myWebViewClient = new WebViewClient();
+        webView.setWebViewClient(myWebViewClient);
         // webView.loadUrl("https://www.temple.edu");
         return v;
     }
@@ -62,4 +67,6 @@ public class PageViewerFragment extends Fragment {
     public void updateUrl (String newUrl) {
         webView.loadUrl(newUrl);
     }
+
+
 }

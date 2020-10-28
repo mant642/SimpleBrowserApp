@@ -55,7 +55,7 @@ public class PageControlFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_page_control, container, false);
         editText = v.findViewById(R.id.editTextUrl);
-        imageButton = v.findViewById(R.id.imageButton);
+        imageButton = v.findViewById(R.id.Go);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
