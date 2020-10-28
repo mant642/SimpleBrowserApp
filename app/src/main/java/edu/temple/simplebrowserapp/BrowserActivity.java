@@ -6,7 +6,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-public class BrowserActivity extends AppCompatActivity implements PageControlFragment.ControlFragmentListener {
+public class BrowserActivity extends AppCompatActivity implements PageControlFragment.ControlFragmentListener, PageViewerFragment.ViewFragmentListener {
+    PageControlFragment f1;
     PageViewerFragment f2;
 
     @Override
@@ -17,7 +18,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
-        PageControlFragment f1 = new PageControlFragment();
+        f1 = new PageControlFragment();
         f2 = new PageViewerFragment();
 
         ft.replace(R.id.page_control, f1);
@@ -25,6 +26,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
         ft.commit();
     }
+
 
     @Override
     public void onUrlEntered(String input) {
@@ -39,5 +41,10 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     @Override
     public void onNextClicked() {
         f2.moveForward();
+    }
+
+    @Override
+    public void onLinkClicked(String url) {
+        f1.refreshUrl(url);
     }
 }

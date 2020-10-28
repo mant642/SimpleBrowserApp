@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class PageControlFragment extends Fragment {
 
@@ -91,7 +92,7 @@ public class PageControlFragment extends Fragment {
         if (context instanceof ControlFragmentListener) {
             listener = (ControlFragmentListener) context;
         } else {
-            throw new RuntimeException("Forgot to implement PaletteActivityListener");
+            throw new RuntimeException("Forgot to implement ControlFragmentListener");
         }
     }
 
@@ -99,6 +100,11 @@ public class PageControlFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    public void refreshUrl (String url) {
+        // Is the BufferType Normal or Editable?
+        editText.setText(url, TextView.BufferType.NORMAL);
     }
 
 

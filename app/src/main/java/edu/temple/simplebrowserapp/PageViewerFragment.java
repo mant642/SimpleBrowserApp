@@ -1,5 +1,6 @@
 package edu.temple.simplebrowserapp;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.webkit.WebViewClient;
 
 public class PageViewerFragment extends Fragment {
     WebView webView;
+    private ViewFragmentListener listener;
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     /*
@@ -39,6 +41,11 @@ public class PageViewerFragment extends Fragment {
     }
      */
 
+    public interface ViewFragmentListener {
+        void onLinkClicked (String url);
+
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,10 +65,28 @@ public class PageViewerFragment extends Fragment {
         webView = v.findViewById(R.id.WebView);
 
         // WebView documentation doesn't specify how to create a new default WebViewClient ...
-        WebViewClient myWebViewClient = new WebViewClient();
+        // WebViewClient myWebViewClient = new WebViewClient();
+
+        MyWebViewClient myWebViewClient = new MyWebViewClient();
         webView.setWebViewClient(myWebViewClient);
         // webView.loadUrl("https://www.temple.edu");
         return v;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ViewFragmentListener) {
+            listener = (ViewFragmentListener) context;
+        } else {
+            throw new RuntimeException("Forgot to implement ViewFragmentListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 
     public void updateUrl (String newUrl) {
@@ -74,6 +99,15 @@ public class PageViewerFragment extends Fragment {
 
     public void moveForward () {
         webView.goForward();
+    }
+
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public void onPageFinished (WebView webView, String url) {
+            listener.onLinkClicked(url);
+            super.onPageFinished(webView, url);
+        }
+
     }
 
 
