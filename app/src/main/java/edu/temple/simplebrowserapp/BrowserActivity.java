@@ -24,7 +24,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             f2 = new PageViewerFragment();
 
             ft.replace(R.id.page_control, f1, "F1");
-            ft.replace(R.id.page_viewer, f2, "F2");
+            ft.replace(R.id.page_display, f2, "F2");
 
             ft.commit();
         } else {
@@ -35,7 +35,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             f2 = (PageViewerFragment) fm.findFragmentByTag("F2");
 
             ft.replace(R.id.page_control, f1);
-            ft.replace(R.id.page_viewer, f2);
+            ft.replace(R.id.page_display, f2);
 
             ft.commit();
 
