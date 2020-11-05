@@ -9,6 +9,7 @@ import android.os.Bundle;
 public class BrowserActivity extends AppCompatActivity implements PageControlFragment.ControlFragmentListener, PageViewerFragment.ViewFragmentListener {
     PageControlFragment f1;
     PageViewerFragment f2;
+    BrowserControlFragment f3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +23,11 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
             f1 = new PageControlFragment();
             f2 = new PageViewerFragment();
+            f3 = new BrowserControlFragment();
 
             ft.replace(R.id.page_control, f1, "F1");
             ft.replace(R.id.page_display, f2, "F2");
+            ft.replace(R.id.browser_control, f3, "F3");
 
             ft.commit();
         } else {
@@ -33,9 +36,11 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
             f1 = (PageControlFragment) fm.findFragmentByTag("F1");
             f2 = (PageViewerFragment) fm.findFragmentByTag("F2");
+            f3 = (BrowserControlFragment) fm.findFragmentByTag("F3");
 
             ft.replace(R.id.page_control, f1);
             ft.replace(R.id.page_display, f2);
+            ft.replace(R.id.browser_control, f3);
 
             ft.commit();
 
