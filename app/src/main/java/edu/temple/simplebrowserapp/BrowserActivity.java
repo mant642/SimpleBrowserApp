@@ -1,65 +1,68 @@
 package edu.temple.simplebrowserapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 public class BrowserActivity extends AppCompatActivity implements PageControlFragment.ControlFragmentListener, PageViewerFragment.ViewFragmentListener {
+    FragmentManager fm;
+
     PageControlFragment f1;
     PageViewerFragment f2;
     BrowserControlFragment f3;
+    PageListFragment f4;
+
+    boolean isLandscape;
+
+    // int orientation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        isLandscape = (findViewById(R.id.page_list) != null);
 
-        if (savedInstanceState == null) {
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
+        fm = getSupportFragmentManager();
 
-            f1 = new PageControlFragment();
-            f2 = new PageViewerFragment();
-            f3 = new BrowserControlFragment();
+        Fragment tmpFragment;
 
-            ft.replace(R.id.page_control, f1, "F1");
-            ft.replace(R.id.page_display, f2, "F2");
-            ft.replace(R.id.browser_control, f3, "F3");
-
-            ft.commit();
+        if ((tmpFragment = fm.findFragmentById(R.id.page_control)) instanceof PageControlFragment) {
+            f1 = (PageControlFragment) tmpFragment;
         } else {
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-
-            f1 = (PageControlFragment) fm.findFragmentByTag("F1");
-            f2 = (PageViewerFragment) fm.findFragmentByTag("F2");
-            f3 = (BrowserControlFragment) fm.findFragmentByTag("F3");
-
-            ft.replace(R.id.page_control, f1);
-            ft.replace(R.id.page_display, f2);
-            ft.replace(R.id.browser_control, f3);
-
-            ft.commit();
-
+            f1 = new PageControlFragment();
+            fm.beginTransaction().add(R.id.page_control, f1).commit();
         }
 
-        // Original implementation
+        if ((tmpFragment = fm.findFragmentById(R.id.page_display)) instanceof PageViewerFragment) {
+            f2 = (PageViewerFragment) tmpFragment;
+        } else {
+            f2 = new PageViewerFragment();
+            fm.beginTransaction().add(R.id.page_display, f2).commit();
+        }
 
-        /*
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
+        if ((tmpFragment = fm.findFragmentById(R.id.browser_control)) instanceof BrowserControlFragment) {
+            f3 = (BrowserControlFragment) tmpFragment;
+        } else {
+            f3 = new BrowserControlFragment();
+            fm.beginTransaction().add(R.id.browser_control, f3).commit();
+        }
 
-        f1 = new PageControlFragment();
-        f2 = new PageViewerFragment();
+        if (isLandscape) {
+            if ((tmpFragment = fm.findFragmentById(R.id.page_list)) instanceof PageListFragment) {
+                f4 = (PageListFragment) tmpFragment;
+            } else {
+                f4 = new PageListFragment();
+                fm.beginTransaction().add(R.id.page_list, f4).commit();
+            }
+        }
 
-        ft.replace(R.id.page_control, f1);
-        ft.replace(R.id.page_viewer, f2);
-
-        ft.commit();
-         */
     }
 
 
