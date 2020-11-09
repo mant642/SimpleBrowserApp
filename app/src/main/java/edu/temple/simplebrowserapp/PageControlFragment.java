@@ -15,9 +15,9 @@ import android.widget.TextView;
 public class PageControlFragment extends Fragment {
 
     private EditText editText;
-    private ImageButton imageButton;
-    private ImageButton imageButton2;
-    private ImageButton imageButton3;
+    private ImageButton goButton;
+    private ImageButton backButton;
+    private ImageButton nextButton;
     private ControlFragmentListener listener;
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,23 +60,23 @@ public class PageControlFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_page_control, container, false);
         editText = v.findViewById(R.id.editTextUrl);
-        imageButton = v.findViewById(R.id.Go);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        goButton = v.findViewById(R.id.Go);
+        goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String input = editText.getText().toString();
                 listener.onUrlEntered(input);
             }
         });
-        imageButton2 = v.findViewById(R.id.Back);
-        imageButton2.setOnClickListener(new View.OnClickListener() {
+        backButton = v.findViewById(R.id.Back);
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onBackClicked();
             }
         });
-        imageButton3 = v.findViewById(R.id.Next);
-        imageButton3.setOnClickListener(new View.OnClickListener() {
+        nextButton = v.findViewById(R.id.Next);
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onNextClicked();
