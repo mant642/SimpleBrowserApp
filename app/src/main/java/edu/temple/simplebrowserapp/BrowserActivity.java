@@ -15,7 +15,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class BrowserActivity extends AppCompatActivity implements PageControlFragment.ControlFragmentListener, PageViewerFragment.ViewFragmentListener, PagerFragment.PagerFragmentListener, BrowserControlFragment.BrowserControlFragmentListener {
+public class BrowserActivity extends AppCompatActivity implements PageControlFragment.ControlFragmentListener, PageViewerFragment.ViewFragmentListener, PagerFragment.PagerFragmentListener, BrowserControlFragment.BrowserControlFragmentListener, PageListFragment.ListFragmentListener {
     FragmentManager fm;
 
     PageControlFragment f1;
@@ -162,6 +162,13 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         fragments.add(new PageViewerFragment());
         // This is bad, assumes existence of fragment; change later
         f5.viewPager.getAdapter().notifyDataSetChanged();
+        // For some reason, this doesn't work. No matter, I'll just implement it in the PageListFragment.
+        // f4.listView.getAdapter().notifyDataSetChanged();
+
+        if (f4 != null) {
+            // But this does ...
+            f4.pageViewerFragmentAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
