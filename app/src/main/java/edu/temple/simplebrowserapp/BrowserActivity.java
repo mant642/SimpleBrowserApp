@@ -174,6 +174,9 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             // But this does ... sometimes ...
             f4.pageViewerFragmentAdapter.notifyDataSetChanged();
         }
+
+        // Should display new page automatically
+        f5.viewPager.setCurrentItem(fragments.size() - 1);
     }
 
     @Override
