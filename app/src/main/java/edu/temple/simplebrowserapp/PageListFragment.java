@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class PageListFragment extends Fragment {
 
     ListView listView;
+    ViewPager viewPager;
     ArrayList<PageViewerFragment> fragments;
     private ListFragmentListener listener;
     PageViewerFragmentAdapter pageViewerFragmentAdapter;
@@ -25,6 +27,7 @@ public class PageListFragment extends Fragment {
 
     public interface ListFragmentListener {
         ArrayList<PageViewerFragment> getArrayList();
+        ViewPager getFragmentViewPager();
     }
 
     @Override
@@ -34,9 +37,10 @@ public class PageListFragment extends Fragment {
         View l = inflater.inflate(R.layout.fragment_page_list, container, false);
         listView = l.findViewById(R.id.websiteList);
         fragments = listener.getArrayList();
+        viewPager = listener.getFragmentViewPager();
         // Putting the adapter reference outside so other methods can access it
         // PageViewerFragmentAdapter pageViewerFragmentAdapter = new PageViewerFragmentAdapter(getActivity(), fragments);
-        pageViewerFragmentAdapter = new PageViewerFragmentAdapter(getActivity(), fragments);
+        pageViewerFragmentAdapter = new PageViewerFragmentAdapter(getActivity(), fragments, viewPager);
         listView.setAdapter(pageViewerFragmentAdapter);
         return l;
     }

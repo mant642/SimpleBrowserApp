@@ -75,6 +75,16 @@ public class PagerFragment extends Fragment {
     }
 
     /*
+    public void setPageDisplayed(int item) {
+        viewPager.setCurrentItem(item);
+    }
+     */
+
+    public ViewPager getViewPager() {
+        return viewPager;
+    }
+
+    /*
     public int returnCurrentPage () {
         return viewPager.getCurrentItem();
     }

@@ -158,6 +158,11 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     }
 
     @Override
+    public ViewPager getFragmentViewPager() {
+        return f5.getViewPager();
+    }
+
+    @Override
     public void addNewPage() {
         fragments.add(new PageViewerFragment());
         // This is bad, assumes existence of fragment; change later
@@ -166,7 +171,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         // f4.listView.getAdapter().notifyDataSetChanged();
 
         if (f4 != null) {
-            // But this does ...
+            // But this does ... sometimes ...
             f4.pageViewerFragmentAdapter.notifyDataSetChanged();
         }
     }

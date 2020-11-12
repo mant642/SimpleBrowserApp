@@ -99,6 +99,8 @@ public class PageViewerFragment extends Fragment implements Serializable {
 
     public void updateUrl (String newUrl) {
         webView.loadUrl(newUrl);
+        // Maybe set PageListFragment's TextViews here?
+
     }
 
     public void moveBack () {
