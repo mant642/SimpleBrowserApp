@@ -8,6 +8,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     // ArrayList of fragments
     ArrayList<PageViewerFragment> fragments;
 
+    private static final String KEY_ARRAY_VALUE = "fragmentArray";
+
     // int orientation;
 
 
@@ -39,8 +43,14 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         isLandscape = (findViewById(R.id.page_list) != null);
 
         // Not sure this thing will be preserved when the activity is recreated; should probably find a way to preserve it (Bundle?)
-        fragments = new ArrayList<>();
+        // fragments = new ArrayList<>();
         // fragments.add(new PageViewerFragment());
+
+        if (savedInstanceState != null) {
+            fragments = (ArrayList<PageViewerFragment>) savedInstanceState.getSerializable(KEY_ARRAY_VALUE);
+        } else {
+            fragments = new ArrayList<>();
+        }
 
         fm = getSupportFragmentManager();
 
@@ -90,7 +100,6 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         }
 
     }
-
 
     @Override
     public void onUrlEntered(String input) {
@@ -153,5 +162,11 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         fragments.add(new PageViewerFragment());
         // This is bad, assumes existence of fragment; change later
         f5.viewPager.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(KEY_ARRAY_VALUE, fragments);
     }
 }

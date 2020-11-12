@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class PageViewerFragment extends Fragment {
+import java.io.Serializable;
+
+public class PageViewerFragment extends Fragment implements Serializable {
     WebView webView;
     View v;
     private ViewFragmentListener listener;
