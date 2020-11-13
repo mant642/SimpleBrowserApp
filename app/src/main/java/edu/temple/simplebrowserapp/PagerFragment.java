@@ -30,6 +30,7 @@ public class PagerFragment extends Fragment {
     // This hopefully gives the child fragment the ability to access its parent as per usual
     public interface PagerFragmentListener {
         ArrayList<PageViewerFragment> getArrayList();
+        void onLinkClicked(String url);
     }
 
     @Override
@@ -60,6 +61,18 @@ public class PagerFragment extends Fragment {
             public void onPageSelected(int position) {
                 if (fragments.get(position).webView.getTitle() != null) {
                     getActivity().setTitle(fragments.get(position).webView.getTitle());
+                }
+                // Do I need to null check this too?
+                /*
+                if (fragments.get(position).webView.getUrl() != null) {
+                    listener.onLinkClicked(fragments.get(position).webView.getUrl());
+                }
+                 */
+                // Better?
+                if (fragments.get(position).webView.getUrl() == null) {
+                    listener.onLinkClicked("about:blank");
+                } else {
+                    listener.onLinkClicked(fragments.get(position).webView.getUrl());
                 }
             }
         });
