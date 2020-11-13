@@ -128,9 +128,17 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         if (!input.startsWith("https://")) {
             // f5.fragments.get(f5.returnCurrentPage()).updateUrl("https://" + input);
             fragments.get(f5.viewPager.getCurrentItem()).updateUrl("https://" + input);
+            // Maybe this works?
+            if (f4 != null) {
+                f4.pageViewerFragmentAdapter.notifyDataSetChanged();
+            }
         } else {
             // f5.fragments.get(f5.returnCurrentPage()).updateUrl(input);
             fragments.get(f5.viewPager.getCurrentItem()).updateUrl(input);
+            // Maybe this works?
+            if (f4 != null) {
+                f4.pageViewerFragmentAdapter.notifyDataSetChanged();
+            }
         }
 
     }
@@ -165,13 +173,12 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     @Override
     public void addNewPage() {
         fragments.add(new PageViewerFragment());
-        // This is bad, assumes existence of fragment; change later
         f5.viewPager.getAdapter().notifyDataSetChanged();
         // For some reason, this doesn't work. No matter, I'll just implement it in the PageListFragment.
         // f4.listView.getAdapter().notifyDataSetChanged();
 
         if (f4 != null) {
-            // But this does ... sometimes ...
+            // But this does ...
             f4.pageViewerFragmentAdapter.notifyDataSetChanged();
         }
 
