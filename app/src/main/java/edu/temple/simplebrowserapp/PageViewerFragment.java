@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,7 @@ import android.webkit.WebViewClient;
 
 import java.io.Serializable;
 
-public class PageViewerFragment extends Fragment implements Serializable {
+public class PageViewerFragment extends Fragment implements Parcelable {
     WebView webView;
     View v;
     private ViewFragmentListener listener;
@@ -31,6 +33,31 @@ public class PageViewerFragment extends Fragment implements Serializable {
 
     public PageViewerFragment() {
         // Required empty public constructor
+    }
+
+    protected PageViewerFragment(Parcel in) {
+    }
+
+    public static final Creator<PageViewerFragment> CREATOR = new Creator<PageViewerFragment>() {
+        @Override
+        public PageViewerFragment createFromParcel(Parcel in) {
+            return new PageViewerFragment(in);
+        }
+
+        @Override
+        public PageViewerFragment[] newArray(int size) {
+            return new PageViewerFragment[size];
+        }
+    };
+
+    // These two methods are part of the Parcelable interface
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
     }
 
     /*

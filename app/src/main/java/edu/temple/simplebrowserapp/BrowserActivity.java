@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -16,6 +18,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class BrowserActivity extends AppCompatActivity implements PageControlFragment.ControlFragmentListener, PageViewerFragment.ViewFragmentListener, PagerFragment.PagerFragmentListener, BrowserControlFragment.BrowserControlFragmentListener, PageListFragment.ListFragmentListener {
+    // Part of potential fix for nonserializable error
+    // Yeah, this doesn't work
+    // transient Context context;
     FragmentManager fm;
 
     PageControlFragment f1;
@@ -50,13 +55,20 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         // fragments.add(new PageViewerFragment());
 
         if (savedInstanceState != null) {
-            fragments = (ArrayList<PageViewerFragment>) savedInstanceState.getSerializable(KEY_ARRAY_VALUE);
+            // fragments = (ArrayList<PageViewerFragment>) savedInstanceState.getSerializable(KEY_ARRAY_VALUE);
+            // So you can't resolve the error by simply removing the Serializable interface, need to implement Parcelable
+            // fragments = (ArrayList) savedInstanceState.getSerializable(KEY_ARRAY_VALUE);
+            // Not quite
+            // fragments = (ArrayList) savedInstanceState.getParcelable(KEY_ARRAY_VALUE);
+            fragments = (ArrayList) savedInstanceState.getParcelableArrayList(KEY_ARRAY_VALUE);
         } else {
             fragments = new ArrayList<>();
         }
 
         // Initial version of Bookmarks Array; isn't preserved across activity reset or end
         bookmarks = new ArrayList<>();
+
+        // context = this;
 
         fm = getSupportFragmentManager();
 
@@ -199,12 +211,22 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         // Which I'm totally going to do
         // Not sure about getting the current URL with webView.getUrl()
         bookmarks.add(new Bookmark(fragments.get(f5.viewPager.getCurrentItem()).webView.getTitle(), fragments.get(f5.viewPager.getCurrentItem()).webView.getUrl()));
-        Log.e("BrowserActivity", "I got here");
+        // Can confirm, logs title and URL successfully
+        //Log.e("BrowserActivity", bookmarks.get(0).URL);
+    }
+
+    @Override
+    public void launchBookmarkManager() {
+            Intent intent = new Intent(this, BookmarksActivity.class);
+            startActivity(intent);
     }
 
     @Override
     protected void onSaveInstanceState (Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(KEY_ARRAY_VALUE, fragments);
+        // outState.putSerializable(KEY_ARRAY_VALUE, fragments);
+        // Perhaps not quite the right method?
+        // outState.putParcelable(KEY_ARRAY_VALUE, fragments);
+        outState.putParcelableArrayList(KEY_ARRAY_VALUE, fragments);
     }
 }

@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 public class BrowserControlFragment extends Fragment {
     private ImageButton imageButton;
     private ImageButton imageButton2;
+    private ImageButton imageButton3;
     private BrowserControlFragmentListener listener;
 
     public BrowserControlFragment() {
@@ -24,6 +25,7 @@ public class BrowserControlFragment extends Fragment {
     public interface BrowserControlFragmentListener {
         void addNewPage();
         void addNewBookmark();
+        void launchBookmarkManager();
     }
 
     @Override
@@ -44,6 +46,13 @@ public class BrowserControlFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 listener.addNewBookmark();
+            }
+        });
+        imageButton3 = l.findViewById(R.id.imageButton3);
+        imageButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.launchBookmarkManager();
             }
         });
         return l;
