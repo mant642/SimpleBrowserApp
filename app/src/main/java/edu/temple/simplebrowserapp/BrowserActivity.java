@@ -31,6 +31,9 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
     private static final String KEY_ARRAY_VALUE = "fragmentArray";
 
+    // Preliminary ArrayList of Bookmarks, to be replaced by a custom Collections object
+    ArrayList<Bookmark> bookmarks;
+
     // int orientation;
 
 
@@ -51,6 +54,9 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         } else {
             fragments = new ArrayList<>();
         }
+
+        // Initial version of Bookmarks Array; isn't preserved across activity reset or end
+        bookmarks = new ArrayList<>();
 
         fm = getSupportFragmentManager();
 
@@ -184,6 +190,16 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
         // Should display new page automatically
         f5.viewPager.setCurrentItem(fragments.size() - 1);
+    }
+
+    @Override
+    public void addNewBookmark() {
+        // I could do the ugliest thing and call ArrayList's add method with Bookmark's constructor, while using the PageViewerFragment's WebView references
+        // for arguments
+        // Which I'm totally going to do
+        // Not sure about getting the current URL with webView.getUrl()
+        bookmarks.add(new Bookmark(fragments.get(f5.viewPager.getCurrentItem()).webView.getTitle(), fragments.get(f5.viewPager.getCurrentItem()).webView.getUrl()));
+        Log.e("BrowserActivity", "I got here");
     }
 
     @Override

@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 // Also probably doesn't need a factory method
 public class BrowserControlFragment extends Fragment {
     private ImageButton imageButton;
+    private ImageButton imageButton2;
     private BrowserControlFragmentListener listener;
 
     public BrowserControlFragment() {
@@ -22,6 +23,7 @@ public class BrowserControlFragment extends Fragment {
 
     public interface BrowserControlFragmentListener {
         void addNewPage();
+        void addNewBookmark();
     }
 
     @Override
@@ -35,6 +37,13 @@ public class BrowserControlFragment extends Fragment {
             public void onClick(View v) {
                 listener.addNewPage();
                 Log.e("BrowserActivity","This works successfully");
+            }
+        });
+        imageButton2 = l.findViewById(R.id.imageButton2);
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.addNewBookmark();
             }
         });
         return l;
