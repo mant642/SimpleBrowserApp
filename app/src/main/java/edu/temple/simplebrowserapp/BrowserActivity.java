@@ -35,6 +35,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     ArrayList<PageViewerFragment> fragments;
 
     private static final String KEY_ARRAY_VALUE = "fragmentArray";
+    private static final String KEY_BOOKMARK_ARRAY = "edu.temple.simplebrowserapp.ARRAY";
 
     // Preliminary ArrayList of Bookmarks, to be replaced by a custom Collections object
     ArrayList<Bookmark> bookmarks;
@@ -218,6 +219,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     @Override
     public void launchBookmarkManager() {
             Intent intent = new Intent(this, BookmarksActivity.class);
+            intent.putParcelableArrayListExtra(KEY_BOOKMARK_ARRAY, bookmarks);
             startActivity(intent);
     }
 
