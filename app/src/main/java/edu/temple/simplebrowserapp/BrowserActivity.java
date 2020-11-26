@@ -1,5 +1,6 @@
     package edu.temple.simplebrowserapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -220,7 +222,9 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     public void launchBookmarkManager() {
             Intent intent = new Intent(this, BookmarksActivity.class);
             intent.putParcelableArrayListExtra(EXTRA_ARRAY, bookmarks);
-            startActivity(intent);
+            // startActivity(intent);
+            // Make the request code a constant later for better design
+            startActivityForResult(intent, 1);
     }
 
     @Override
@@ -230,5 +234,27 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         // Perhaps not quite the right method?
         // outState.putParcelable(KEY_ARRAY_VALUE, fragments);
         outState.putParcelableArrayList(KEY_ARRAY_VALUE, fragments);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            // This doesn't consider if the user hits back ...
+            String receivedURL = data.getStringExtra("result");
+            // Log.e("BrowserActivity", " " + receivedURL);
+
+            /*
+            Context context = getApplicationContext();
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, receivedURL, duration);
+            toast.show();
+             */
+
+            // And that's how you do it in one line
+            // Toast.makeText(getApplicationContext(), receivedURL, Toast.LENGTH_SHORT).show();
+        }
     }
 }
