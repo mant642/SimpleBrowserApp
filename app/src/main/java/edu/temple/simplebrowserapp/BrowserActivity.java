@@ -1,4 +1,4 @@
-package edu.temple.simplebrowserapp;
+    package edu.temple.simplebrowserapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -35,7 +35,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     ArrayList<PageViewerFragment> fragments;
 
     private static final String KEY_ARRAY_VALUE = "fragmentArray";
-    private static final String KEY_BOOKMARK_ARRAY = "edu.temple.simplebrowserapp.ARRAY";
+    public static final String EXTRA_ARRAY = "edu.temple.simplebrowserapp.EXTRA_ARRAY";
 
     // Preliminary ArrayList of Bookmarks, to be replaced by a custom Collections object
     ArrayList<Bookmark> bookmarks;
@@ -219,7 +219,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     @Override
     public void launchBookmarkManager() {
             Intent intent = new Intent(this, BookmarksActivity.class);
-            intent.putParcelableArrayListExtra(KEY_BOOKMARK_ARRAY, bookmarks);
+            intent.putParcelableArrayListExtra(EXTRA_ARRAY, bookmarks);
             startActivity(intent);
     }
 
