@@ -243,15 +243,9 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         if (requestCode == 1) {
             // This doesn't consider if the user hits back ...
             String receivedURL = data.getStringExtra("result");
+            // Seems like the best bet to launch the webpage, yanked straight from onUrlEntered()
+            fragments.get(f5.viewPager.getCurrentItem()).updateUrl(receivedURL);
             // Log.e("BrowserActivity", " " + receivedURL);
-
-            /*
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, receivedURL, duration);
-            toast.show();
-             */
 
             // And that's how you do it in one line
             // Toast.makeText(getApplicationContext(), receivedURL, Toast.LENGTH_SHORT).show();

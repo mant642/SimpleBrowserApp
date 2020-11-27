@@ -1,9 +1,11 @@
 package edu.temple.simplebrowserapp;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,6 +37,16 @@ public class BookmarkAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        /*
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View rowView = inflater.inflate(R.layout.list_row, parent, false);
+        TextView textView = rowView.findViewById(R.id.textView3);
+        Button button = rowView.findViewById(R.id.deleteButton);
+        textView.setText(bookmarks.get(position).name);
+        return rowView;
+        */
+
         TextView textView;
         if (convertView == null) {
             textView = new TextView(context);
