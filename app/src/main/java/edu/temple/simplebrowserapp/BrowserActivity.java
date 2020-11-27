@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -16,6 +17,10 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -69,7 +74,17 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         }
 
         // Initial version of Bookmarks Array; isn't preserved across activity reset or end
-        bookmarks = new ArrayList<>();
+        // bookmarks = new ArrayList<>();
+        // This new implementation should be preserved across activity destruction
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedpref", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("bookmarks_array", null);
+        Type type = new TypeToken<ArrayList<Bookmark>>() {}.getType();
+        bookmarks = gson.fromJson(json, type);
+
+        if (bookmarks == null) {
+            bookmarks = new ArrayList<>();
+        }
 
         // context = this;
 
@@ -250,5 +265,34 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             // And that's how you do it in one line
             // Toast.makeText(getApplicationContext(), receivedURL, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    // Well, this doesn't work. Maybe onStop()?
+    /*
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Again, should probably be a key
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedpref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(bookmarks);
+        // Yep
+        editor.putString("bookmarks_array", json);
+        editor.commit();
+    }
+     */
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // Again, should probably be a key
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedpref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(bookmarks);
+        // Yep
+        editor.putString("bookmarks_array", json);
+        editor.commit();
     }
 }
