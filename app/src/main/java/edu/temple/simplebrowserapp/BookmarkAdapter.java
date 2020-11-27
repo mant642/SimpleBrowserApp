@@ -36,17 +36,23 @@ public class BookmarkAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
-        /*
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.list_row, parent, false);
-        TextView textView = rowView.findViewById(R.id.textView3);
-        Button button = rowView.findViewById(R.id.deleteButton);
+        TextView textView = rowView.findViewById(R.id.bookmarkTitle);
         textView.setText(bookmarks.get(position).name);
+        Button button = rowView.findViewById(R.id.deleteButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bookmarks.remove(position);
+                notifyDataSetChanged();
+            }
+        });
         return rowView;
-        */
 
+        /*
         TextView textView;
         if (convertView == null) {
             textView = new TextView(context);
@@ -55,5 +61,6 @@ public class BookmarkAdapter extends BaseAdapter {
         }
         textView.setText(bookmarks.get(position).name);
         return textView;
+         */
     }
 }

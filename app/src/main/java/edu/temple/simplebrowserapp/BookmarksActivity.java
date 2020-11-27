@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class BookmarksActivity extends AppCompatActivity {
         bookmarks = intent.getParcelableArrayListExtra(BrowserActivity.EXTRA_ARRAY);
         bookmarkAdapter = new BookmarkAdapter(this, bookmarks);
         listView.setAdapter(bookmarkAdapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -42,5 +44,23 @@ public class BookmarksActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        /*
+        listView.findViewById(R.id.bookmarkTitle).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+         */
+
+        /*
+        listView.findViewById(R.id.bookmarkTitle).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // String testString = v.toString();
+                Toast.makeText(getApplicationContext(), "I'm here now.", Toast.LENGTH_SHORT).show();
+            }
+        });
+         */
     }
 }
