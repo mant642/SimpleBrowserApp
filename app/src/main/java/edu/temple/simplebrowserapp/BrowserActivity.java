@@ -261,6 +261,8 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         if (requestCode == 1) {
             // This doesn't consider if the user hits back ...
             String receivedURL = data.getStringExtra("result");
+            // This hopefully allows modifications made in BookmarksActivity to persist ...
+            bookmarks = data.getParcelableArrayListExtra("modified_array");
             // Seems like the best bet to launch the webpage, yanked straight from onUrlEntered()
             fragments.get(f5.viewPager.getCurrentItem()).updateUrl(receivedURL);
             // Log.e("BrowserActivity", " " + receivedURL);

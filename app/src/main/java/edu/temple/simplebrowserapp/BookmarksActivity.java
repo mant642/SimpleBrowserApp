@@ -39,7 +39,8 @@ public class BookmarksActivity extends AppCompatActivity {
                 Intent resultIntent = new Intent ();
                 // Again, replace with an actual key
                 resultIntent.putExtra("result", sendURL);
-
+                // What if I returned the modified array in this as well, so the changes persist into BrowserActivity?
+                resultIntent.putParcelableArrayListExtra("modified_array", bookmarks);
                 setResult(RESULT_OK, resultIntent);
                 finish();
             }
