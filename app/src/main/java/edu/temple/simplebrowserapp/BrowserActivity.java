@@ -74,10 +74,10 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         }
 
         // Initial version of Bookmarks Array; isn't preserved across activity reset or end
-        bookmarks = new ArrayList<>();
+        // bookmarks = new ArrayList<>();
         // This new implementation should be preserved across activity destruction
 
-        /*
+
         SharedPreferences sharedPreferences = getSharedPreferences("sharedpref", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("bookmarks_array", null);
@@ -87,7 +87,6 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         if (bookmarks == null) {
             bookmarks = new ArrayList<>();
         }
-         */
 
         // context = this;
 
@@ -288,7 +287,6 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     }
      */
 
-    /*
     @Override
     protected void onStop() {
         super.onStop();
@@ -301,5 +299,4 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         editor.putString("bookmarks_array", json);
         editor.commit();
     }
-     */
 }
