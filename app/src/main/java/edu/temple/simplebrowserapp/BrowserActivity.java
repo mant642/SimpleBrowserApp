@@ -257,6 +257,16 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                String receivedURL = data.getStringExtra("result");
+                bookmarks = data.getParcelableArrayListExtra("modified_array");
+                fragments.get(f5.viewPager.getCurrentItem()).updateUrl(receivedURL);
+            }
+            if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(getApplicationContext(), "Operation aborted.", Toast.LENGTH_SHORT).show();
+            }
+
+            /*
             // This doesn't consider if the user hits back ...
             String receivedURL = data.getStringExtra("result");
             // This hopefully allows modifications made in BookmarksActivity to persist ...
@@ -264,6 +274,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             // Seems like the best bet to launch the webpage, yanked straight from onUrlEntered()
             fragments.get(f5.viewPager.getCurrentItem()).updateUrl(receivedURL);
             // Log.e("BrowserActivity", " " + receivedURL);
+             */
 
             // And that's how you do it in one line
             // Toast.makeText(getApplicationContext(), receivedURL, Toast.LENGTH_SHORT).show();
