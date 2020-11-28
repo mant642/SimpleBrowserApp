@@ -44,7 +44,6 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     private static final String KEY_ARRAY_VALUE = "fragmentArray";
     public static final String EXTRA_ARRAY = "edu.temple.simplebrowserapp.EXTRA_ARRAY";
 
-    // Preliminary ArrayList of Bookmarks, to be replaced by a custom Collections object
     ArrayList<Bookmark> bookmarks;
 
     // int orientation;
@@ -297,6 +296,6 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         String json = gson.toJson(bookmarks);
         // Yep
         editor.putString("bookmarks_array", json);
-        editor.commit();
+        editor.apply();
     }
 }
