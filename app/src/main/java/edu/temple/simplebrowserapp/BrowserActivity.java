@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -136,6 +137,16 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             }
         }
 
+        // First guess this is where intent handling should occur
+        Intent receivedIntent = getIntent();
+        String action = receivedIntent.getAction();
+        Uri uri = receivedIntent.getData();
+        // For reference
+        // startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse("https://www.temple.edu")));
+        // Looks like a lot of this documentation code is validation
+        if (Intent.ACTION_VIEW.equals(action)) {
+            Toast.makeText(getApplicationContext(), "I didn't crash!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -276,7 +287,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             // Log.e("BrowserActivity", " " + receivedURL);
              */
 
-            // And that's how you do it in one line
+            // TODO And that's how you do it in one line
             // Toast.makeText(getApplicationContext(), receivedURL, Toast.LENGTH_SHORT).show();
         }
     }
