@@ -141,11 +141,29 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         Intent receivedIntent = getIntent();
         String action = receivedIntent.getAction();
         Uri uri = receivedIntent.getData();
-        // For reference
-        // startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse("https://www.temple.edu")));
+        // For reference: startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse("https://www.temple.edu")));
         // Looks like a lot of this documentation code is validation
         if (Intent.ACTION_VIEW.equals(action)) {
-            Toast.makeText(getApplicationContext(), "I didn't crash!", Toast.LENGTH_SHORT).show();
+            String uriString = uri.toString();
+            // Toast.makeText(getApplicationContext(), "I didn't crash!", Toast.LENGTH_SHORT).show();
+            // addNewPage();
+            // I wonder what's wrong with addNewPage(); what if I called its methods separately?
+            fragments.add(new PageViewerFragment());
+            // It's this line right here; this one breaks it.
+            // f5.viewPager.getAdapter().notifyDataSetChanged();
+            /*
+            if (fragments != null) {
+                Toast.makeText(getApplicationContext(), "Fragments ArrayList isn't null.", Toast.LENGTH_LONG).show();
+            }
+             */
+            if (fragments != null) {
+                Integer fragmentsSize = fragments.size();
+                String fragmentsSizeStr = fragmentsSize.toString();
+                Toast.makeText(getApplicationContext(), "The size of the fragments array is " + fragmentsSizeStr, Toast.LENGTH_LONG).show();
+            }
+            // The current page is the new one
+            // Toast.makeText(getApplicationContext(), uriString, Toast.LENGTH_LONG).show();
+            // fragments.get(f5.viewPager.getCurrentItem()).updateUrl(uri.toString());
         }
     }
 
