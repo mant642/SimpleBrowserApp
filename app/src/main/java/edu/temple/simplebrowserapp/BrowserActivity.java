@@ -11,10 +11,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -48,6 +50,15 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
     // int orientation;
 
+
+    /*
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fragments.add(new PageViewerFragment());
+        f5.viewPager.getAdapter().notifyDataSetChanged();
+    }
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +99,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         }
 
         // context = this;
+
 
         fm = getSupportFragmentManager();
 
@@ -135,6 +147,20 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
                 fm.beginTransaction().add(R.id.page_list, f4).commit();
             }
         }
+
+
+        /*
+        Intent receivedIntent = getIntent();
+        String action = receivedIntent.getAction();
+        Uri uri = receivedIntent.getData();
+
+        if (Intent.ACTION_VIEW.equals(action)) {
+            // Toast.makeText(getApplicationContext(), uri.toString(), Toast.LENGTH_SHORT).show();
+            // fragments.add(new PageViewerFragment());
+            // f5.viewPager.getAdapter().notifyDataSetChanged();
+            fragments.get(f5.viewPager.getCurrentItem()).updateUrl(uri.toString());
+        }
+         */
 
     }
 
@@ -276,7 +302,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             // Log.e("BrowserActivity", " " + receivedURL);
              */
 
-            // And that's how you do it in one line
+            // Todo And that's how you do it in one line
             // Toast.makeText(getApplicationContext(), receivedURL, Toast.LENGTH_SHORT).show();
         }
     }
