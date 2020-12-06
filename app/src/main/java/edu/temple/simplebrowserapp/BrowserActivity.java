@@ -51,6 +51,33 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        fragments.add(new PageViewerFragment());
+        f5.viewPager.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent receivedIntent = getIntent();
+        String action = receivedIntent.getAction();
+        Uri uri = receivedIntent.getData();
+
+
+        if (Intent.ACTION_VIEW.equals(action)) {
+            fragments.get(f5.viewPager.getCurrentItem()).updateUrl(uri.toString());
+            // Toast.makeText(getApplicationContext(), uri.toString(), Toast.LENGTH_LONG).show();
+            /*
+            if (fragments.get(0).webView == null) {
+                Toast.makeText(getApplicationContext(), "This thing is null.", Toast.LENGTH_LONG).show();
+            }
+             */
+        }
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -137,34 +164,27 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             }
         }
 
+        // addNewPage();
+        // launchBookmarkManager();
+
         // First guess this is where intent handling should occur
+        /*
         Intent receivedIntent = getIntent();
         String action = receivedIntent.getAction();
         Uri uri = receivedIntent.getData();
+         */
         // For reference: startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse("https://www.temple.edu")));
         // Looks like a lot of this documentation code is validation
+
+        /*
+        Intent receivedIntent = getIntent();
+        String action = receivedIntent.getAction();
+        Uri uri = receivedIntent.getData();
+
         if (Intent.ACTION_VIEW.equals(action)) {
-            String uriString = uri.toString();
-            // Toast.makeText(getApplicationContext(), "I didn't crash!", Toast.LENGTH_SHORT).show();
-            // addNewPage();
-            // I wonder what's wrong with addNewPage(); what if I called its methods separately?
-            fragments.add(new PageViewerFragment());
-            // It's this line right here; this one breaks it.
-            // f5.viewPager.getAdapter().notifyDataSetChanged();
-            /*
-            if (fragments != null) {
-                Toast.makeText(getApplicationContext(), "Fragments ArrayList isn't null.", Toast.LENGTH_LONG).show();
-            }
-             */
-            if (fragments != null) {
-                Integer fragmentsSize = fragments.size();
-                String fragmentsSizeStr = fragmentsSize.toString();
-                Toast.makeText(getApplicationContext(), "The size of the fragments array is " + fragmentsSizeStr, Toast.LENGTH_LONG).show();
-            }
-            // The current page is the new one
-            // Toast.makeText(getApplicationContext(), uriString, Toast.LENGTH_LONG).show();
             // fragments.get(f5.viewPager.getCurrentItem()).updateUrl(uri.toString());
         }
+         */
     }
 
     @Override

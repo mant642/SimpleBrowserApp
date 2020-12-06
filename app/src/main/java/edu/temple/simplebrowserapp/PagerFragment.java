@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class PagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View l = inflater.inflate(R.layout.fragment_pager, container, false);
-        viewPager = l.findViewById(R.id.ViewPager);
+        viewPager = (ViewPager) l.findViewById(R.id.ViewPager);
 
         // This should let you access the Activity's ArrayList
         // But would it be updated when the Activity is updated?
@@ -84,6 +85,7 @@ public class PagerFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof PagerFragmentListener) {
             listener = (PagerFragmentListener) context;
+            // Log.e("PagerFragment", "We got here!");
         } else {
             throw new RuntimeException("Forgot to implement ViewFragmentListener");
         }

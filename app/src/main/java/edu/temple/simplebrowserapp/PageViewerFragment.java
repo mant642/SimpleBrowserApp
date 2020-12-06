@@ -92,6 +92,15 @@ public class PageViewerFragment extends Fragment implements Parcelable {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (savedInstanceState != null) {
+            v = inflater.inflate(R.layout.fragment_page_viewer, container, false);
+            webView = v.findViewById(R.id.WebView);
+
+            // WebView documentation doesn't specify how to create a new default WebViewClient ...
+            // WebViewClient myWebViewClient = new WebViewClient();
+
+            MyWebViewClient myWebViewClient = new MyWebViewClient();
+            webView.setWebViewClient(myWebViewClient);
+            // webView.loadUrl("https://www.temple.edu");
 
         } else {
             // Inflate the layout for this fragment
