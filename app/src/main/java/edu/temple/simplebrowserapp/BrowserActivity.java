@@ -1,7 +1,9 @@
     package edu.temple.simplebrowserapp;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,6 +17,8 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -89,6 +93,9 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
         // context = this;
 
+        Toolbar myToolBar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolBar);
+
         fm = getSupportFragmentManager();
 
         Fragment tmpFragment;
@@ -136,6 +143,24 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             }
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_share:
+                Toast.makeText(getApplicationContext(), "This works!", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -276,7 +301,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             // Log.e("BrowserActivity", " " + receivedURL);
              */
 
-            // And that's how you do it in one line
+            //Todo And that's how you do it in one line
             // Toast.makeText(getApplicationContext(), receivedURL, Toast.LENGTH_SHORT).show();
         }
     }
