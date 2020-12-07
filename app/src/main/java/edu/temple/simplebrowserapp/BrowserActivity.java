@@ -156,7 +156,28 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
-                Toast.makeText(getApplicationContext(), "This works!", Toast.LENGTH_SHORT).show();
+                // Yeah, this doesn't work
+                /*
+                String urlTitle = fragments.get(f5.viewPager.getCurrentItem()).webView.getTitle();
+                String urlText = fragments.get(f5.viewPager.getCurrentItem()).webView.getUrl();
+                // Toast.makeText(getApplicationContext(), urlTitle + " " + urlText, Toast.LENGTH_SHORT).show();
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_HTML_TEXT, urlText);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, urlTitle);
+
+                // Yeah, what's our type?
+                // shareIntent.setType()
+
+                startActivity(Intent.createChooser(shareIntent, "How will you share the URL?"));
+                 */
+
+                String urlText = fragments.get(f5.viewPager.getCurrentItem()).webView.getUrl();
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, urlText);
+                shareIntent.setType("text/plain");
+
+                startActivity(Intent.createChooser(shareIntent, "How will you share the URL?"));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
