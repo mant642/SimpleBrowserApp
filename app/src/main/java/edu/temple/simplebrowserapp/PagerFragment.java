@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -32,6 +33,7 @@ public class PagerFragment extends Fragment {
     public interface PagerFragmentListener {
         ArrayList<PageViewerFragment> getArrayList();
         void onLinkClicked(String url);
+        String onRecievedIntent();
     }
 
     @Override
@@ -43,6 +45,8 @@ public class PagerFragment extends Fragment {
         // This should let you access the Activity's ArrayList
         // But would it be updated when the Activity is updated?
         fragments = listener.getArrayList();
+
+
         viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @NonNull
             @Override
@@ -55,6 +59,16 @@ public class PagerFragment extends Fragment {
             public int getCount() {
                 return fragments.size();
                 // return listener.getArrayList().size();
+            }
+
+            @Override
+            public void finishUpdate(@NonNull ViewGroup container) {
+                super.finishUpdate(container);
+                String recievedURLIntent = listener.onRecievedIntent();
+                if (recievedURLIntent != null ) {
+                    fragments.get(viewPager.getCurrentItem()).webView.loadUrl(recievedURLIntent);
+                }
+                // fragments.get(viewPager.getCurrentItem()).webView.loadUrl(recievedURLIntent);
             }
         });
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {

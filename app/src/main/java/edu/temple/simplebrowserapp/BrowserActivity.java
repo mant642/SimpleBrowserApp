@@ -66,7 +66,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
 
         if (Intent.ACTION_VIEW.equals(action)) {
-            fragments.get(f5.viewPager.getCurrentItem()).updateUrl(uri.toString());
+            // fragments.get(f5.viewPager.getCurrentItem()).updateUrl(uri.toString());
             // Toast.makeText(getApplicationContext(), uri.toString(), Toast.LENGTH_LONG).show();
             /*
             if (fragments.get(0).webView == null) {
@@ -244,6 +244,17 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     @Override
     public void onLinkClicked(String url) {
         f1.refreshUrl(url);
+    }
+
+    @Override
+    public String onRecievedIntent() {
+        Intent receivedIntent = getIntent();
+        String action = receivedIntent.getAction();
+        Uri uri = receivedIntent.getData();
+        if (uri == null) {
+            return "about:blank";
+        }
+        return uri.toString();
     }
 
     @Override
