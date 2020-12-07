@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -52,6 +53,13 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
     // int orientation;
 
+    // Add a new PageViewerFragment to the fragments array and update the ViewPager so a URL can be loaded as soon as the app is ready
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fragments.add(new PageViewerFragment());
+        f5.viewPager.getAdapter().notifyDataSetChanged();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +150,16 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
                 fm.beginTransaction().add(R.id.page_list, f4).commit();
             }
         }
+
+        // Handling the implicit intent
+        Intent receivedIntent = getIntent();
+        String action = receivedIntent.getAction();
+        Uri uri = receivedIntent.getData();
+
+        if (Intent.ACTION_VIEW.equals(action)) {
+            Toast.makeText(getApplicationContext(), uri.toString(), Toast.LENGTH_LONG).show();
+        }
+
 
     }
 
