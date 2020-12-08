@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -48,6 +49,31 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
 
     // int orientation;
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Before, it added a new fragment every time you changed orientation
+        if (fragments.size() == 0) {
+            fragments.add(new PageViewerFragment());
+            f5.viewPager.getAdapter().notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        /*
+        Intent receivedIntent = getIntent();
+        String action = receivedIntent.getAction();
+        Uri uri = receivedIntent.getData();
+
+        if (Intent.ACTION_VIEW.equals(action)) {
+
+        }
+         */
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,6 +221,17 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     @Override
     public void onLinkClicked(String url) {
         f1.refreshUrl(url);
+    }
+
+    @Override
+    public String onRecievedIntent() {
+        Intent receivedIntent = getIntent();
+        // String action = receivedIntent.getAction();
+        Uri uri = receivedIntent.getData();
+        if (uri == null) {
+            return "about:blank";
+        }
+        return uri.toString();
     }
 
     @Override
