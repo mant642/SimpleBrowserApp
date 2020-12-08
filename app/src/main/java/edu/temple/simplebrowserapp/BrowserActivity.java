@@ -57,8 +57,10 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     @Override
     protected void onStart() {
         super.onStart();
-        fragments.add(new PageViewerFragment());
-        f5.viewPager.getAdapter().notifyDataSetChanged();
+        if (fragments.size() == 0) {
+            fragments.add(new PageViewerFragment());
+            f5.viewPager.getAdapter().notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -151,6 +153,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
             }
         }
 
+        /*
         // Handling the implicit intent
         Intent receivedIntent = getIntent();
         String action = receivedIntent.getAction();
@@ -159,6 +162,7 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
         if (Intent.ACTION_VIEW.equals(action)) {
             Toast.makeText(getApplicationContext(), uri.toString(), Toast.LENGTH_LONG).show();
         }
+         */
 
 
     }
@@ -259,6 +263,16 @@ public class BrowserActivity extends AppCompatActivity implements PageControlFra
     @Override
     public void onLinkClicked(String url) {
         f1.refreshUrl(url);
+    }
+
+    @Override
+    public String onReceivedIntent() {
+        Intent receivedIntent = getIntent();
+        Uri uri = receivedIntent.getData();
+        if (uri == null) {
+            return "about:blank";
+        }
+        return uri.toString();
     }
 
     @Override

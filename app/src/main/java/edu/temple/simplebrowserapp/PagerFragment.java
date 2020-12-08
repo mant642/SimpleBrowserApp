@@ -31,6 +31,7 @@ public class PagerFragment extends Fragment {
     public interface PagerFragmentListener {
         ArrayList<PageViewerFragment> getArrayList();
         void onLinkClicked(String url);
+        String onReceivedIntent();
     }
 
     @Override
@@ -54,6 +55,16 @@ public class PagerFragment extends Fragment {
             public int getCount() {
                 return fragments.size();
                 // return listener.getArrayList().size();
+            }
+
+            @Override
+            public void finishUpdate(@NonNull ViewGroup container) {
+                super.finishUpdate(container);
+                String receivedURLIntent = listener.onReceivedIntent();
+                if (receivedURLIntent != null && !receivedURLIntent.equals("about:blank") && fragments.size() == 1) {
+                    fragments.get(viewPager.getCurrentItem()).webView.loadUrl(receivedURLIntent);
+                }
+
             }
         });
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
